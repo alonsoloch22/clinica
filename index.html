@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema ERP - 17Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">17Lab</div>
+                <h2>Sistema ERP</h2>
+            </div>
+            
+            <nav class="menu">
+                <!-- Agregamos data-target para vincular con las secciones -->
+                <a href="#" class="nav-link active" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="#" class="nav-link" data-target="clientes"><i class="fas fa-users"></i> Clientes</a>
+                <a href="#" class="nav-link" data-target="proveedores"><i class="fas fa-truck"></i> Proveedores</a>
+                <a href="#" class="nav-link" data-target="cotizaciones"><i class="fas fa-file-invoice-dollar"></i> Cotizaciones</a>
+                <a href="#" class="nav-link" data-target="ordenes"><i class="fas fa-tools"></i> Órdenes</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Header común -->
+            <header class="top-bar">
+                <div class="page-title">
+                    <h2 id="page-header-title">Dashboard General</h2>
+                </div>
+                <div class="user-info">
+                    <span>Hola, <strong>Diego</strong></span>
+                    <img src="https://i.pravatar.cc/150?img=11" alt="Avatar" class="avatar">
+                </div>
+            </header>
+
+            <!-- VISTA 1: DASHBOARD (Lo que ya teníamos) -->
+            <div id="dashboard" class="content-section active">
+                <section class="kpi-grid">
+                    <div class="card kpi kpi-green">
+                        <div class="kpi-header">Ingresos del Mes</div>
+                        <div class="kpi-value">₡85,200</div>
+                    </div>
+                    <div class="card kpi kpi-red">
+                        <div class="kpi-header">Gastos del Mes</div>
+                        <div class="kpi-value">₡42,800</div>
+                    </div>
+                    <div class="card kpi kpi-blue">
+                        <div class="kpi-header">Órdenes en Proceso</div>
+                        <div class="kpi-value">12</div>
+                    </div>
+                    <div class="card kpi kpi-orange">
+                        <div class="kpi-header">Cotizaciones Pendientes</div>
+                        <div class="kpi-value">5</div>
+                    </div>
+                </section>
+
+                <section class="grid-row-2">
+                    <div class="card chart-container">
+                        <h3>Flujo de Caja</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="cashFlowChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card table-container">
+                        <h3>Órdenes Recientes</h3>
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>No. OS</th>
+                                    <th>Cliente</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1032</td>
+                                    <td>Empresa Alfa</td>
+                                    <td><span class="badge in-process">En Proceso</span></td>
+                                    <td>13/1/2026</td>
+                                </tr>
+                                <tr>
+                                    <td>1025</td>
+                                    <td>Servicios Gamma</td>
+                                    <td><span class="badge pending">Pendiente</span></td>
+                                    <td>15/1/2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- Sección inferior resumida para el ejemplo -->
+                <section class="grid-row-2">
+                    <div class="card goals-container">
+                        <h3>Metas del Mes</h3>
+                        <div class="goal-item">
+                            <div class="goal-info"><span>Ventas</span><span>75%</span></div>
+                            <div class="progress-bar"><div class="progress-fill green" style="width: 75%;"></div></div>
+                        </div>
+                    </div>
+                     <div class="card info-card">
+                        <h3>Equipo Disponible</h3>
+                        <div class="equipment-list">
+                            <div class="equip-item"><i class="fas fa-chair"></i> 6 U. Dentales</div>
+                            <div class="equip-item"><i class="fas fa-box"></i> 4 Autoclaves</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- VISTA 2: CLIENTES (Basado en tabla 'usuarios' y 'pacientes') -->
+            <div id="clientes" class="content-section">
+                <div class="card full-width-table">
+                    <div class="table-header-actions">
+                        <h3>Listado de Clientes / Pacientes</h3>
+                        <button class="btn-blue-sm"><i class="fas fa-plus"></i> Nuevo Cliente</button>
+                    </div>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>ID (UUID)</th> <!-- Campo 'id' -->
+                                <th>Nombre</th>    <!-- Campo 'nombre' -->
+                                <th>Email</th>     <!-- Campo 'email' -->
+                                <th>Tipo Usuario</th> <!-- Campo 'tipo_usuario' ENUM -->
+                                <th>Rol ID</th>    <!-- Campo 'rol_id' de tabla pacientes -->
+                                <th>Activo</th>    <!-- Campo 'activo' BOOLEAN -->
+                                <th>Creado</th>    <!-- Campo 'created_at' -->
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="mono">u-550e8400</td>
+                                <td>Juan Pérez</td>
+                                <td>juan@gmail.com</td>
+                                <td><span class="role-tag client">Cliente</span></td>
+                                <td>r-1234</td>
+                                <td><span class="status-dot active"></span> Sí</td>
+                                <td>10/01/2025</td>
+                                <td><i class="fas fa-ellipsis-v action-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="mono">u-550e8401</td>
+                                <td>Clínica Dental Sur</td>
+                                <td>contacto@dental.com</td>
+                                <td><span class="role-tag client">Cliente</span></td>
+                                <td>r-5678</td>
+                                <td><span class="status-dot active"></span> Sí</td>
+                                <td>11/01/2025</td>
+                                <td><i class="fas fa-ellipsis-v action-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="mono">u-550e8402</td>
+                                <td>Carlos López</td>
+                                <td>carlos@hotmail.com</td>
+                                <td><span class="role-tag client">Cliente</span></td>
+                                <td>r-9012</td>
+                                <td><span class="status-dot inactive"></span> No</td>
+                                <td>12/01/2025</td>
+                                <td><i class="fas fa-ellipsis-v action-icon"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VISTA 3: PROVEEDORES (Basado en tabla 'proveedores') -->
+            <div id="proveedores" class="content-section">
+                <div class="card full-width-table">
+                    <div class="table-header-actions">
+                        <h3>Listado de Proveedores</h3>
+                        <button class="btn-blue-sm"><i class="fas fa-plus"></i> Nuevo Proveedor</button>
+                    </div>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>ID (UUID)</th>      <!-- Campo 'id' -->
+                                <th>Nombre Empresa</th> <!-- Campo 'nombre' -->
+                                <th>Identificación</th> <!-- Campo 'identificacion' -->
+                                <th>Teléfono</th>       <!-- Campo 'telefono' -->
+                                <th>Email</th>          <!-- Campo 'email' -->
+                                <th>Activo</th>         <!-- Campo 'activo' -->
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="mono">p-770a9900</td>
+                                <td>Insumos Médicos SA</td>
+                                <td>3-101-456789</td>
+                                <td>+506 2222-1111</td>
+                                <td>ventas@insumos.com</td>
+                                <td><span class="status-dot active"></span> Activo</td>
+                                <td><i class="fas fa-edit action-icon"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="mono">p-770a9901</td>
+                                <td>Tecnología Dental CR</td>
+                                <td>3-102-987654</td>
+                                <td>+506 8888-9999</td>
+                                <td>soporte@tecno.cr</td>
+                                <td><span class="status-dot active"></span> Activo</td>
+                                <td><i class="fas fa-edit action-icon"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VISTA 4: COTIZACIONES (Placeholder) -->
+            <div id="cotizaciones" class="content-section">
+                <div class="card">
+                    <h3>Gestión de Cotizaciones</h3>
+                    <p style="color:#666; margin-top:10px;">Vista basada en tabla: <strong>cotizaciones</strong> (paciente_id, estado, fecha).</p>
+                    <br>
+                    <table class="styled-table">
+                        <thead>
+                            <tr><th>ID</th><th>Paciente</th><th>Estado (ENUM)</th><th>Fecha</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>c-100</td><td>Juan Pérez</td><td><span class="badge in-process">En Proceso</span></td><td>2025-01-20</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+             <!-- VISTA 5: ORDENES (Placeholder) -->
+             <div id="ordenes" class="content-section">
+                <div class="card">
+                    <h3>Órdenes de Servicio</h3>
+                    <p style="color:#666; margin-top:10px;">Vista basada en tabla: <strong>ordenes_servicio</strong> (doctor_id, cotizacion_id, estado).</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
