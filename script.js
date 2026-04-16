@@ -1,81 +1,83 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // --- LÓGICA DE NAVEGACIÓN (SPA) ---
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.content-section');
-    const pageTitle = document.getElementById('page-header-title');
+document.addEventListener('DOMContentLoaded', () => {
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+    // 1. Manejo del Loader
+    const loader = document.getElementById('loader');
+    setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 1600);
 
-            // 1. Quitar clase active de todos los links
-            navLinks.forEach(l => l.classList.remove('active'));
-            
-            // 2. Agregar clase active al link clickeado
-            this.classList.add('active');
-
-            // 3. Obtener el target (ej: 'clientes', 'dashboard')
-            const targetId = this.getAttribute('data-target');
-
-            // 4. Actualizar Título de la página
-            const iconHTML = this.querySelector('i').outerHTML;
-            const textHTML = this.childNodes[1].textContent; // Obtiene el texto después del icono
-            pageTitle.innerHTML = `${iconHTML} ${textHTML}`;
-
-            // 5. Ocultar todas las secciones y mostrar la correcta
-            sections.forEach(section => {
-                section.classList.remove('active');
-                if(section.id === targetId) {
-                    section.classList.add('active');
-                }
-            });
-        });
-    });
-
-    // --- GRÁFICO (Solo se inicializa una vez) ---
-    const ctx = document.getElementById('cashFlowChart').getContext('2d');
-    
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-            datasets: [
-                {
-                    type: 'bar',
-                    label: 'Saldo',
-                    data: [35, 50, 60, 40, 50, 80],
-                    backgroundColor: '#1e88e5',
-                    borderRadius: 4,
-                    order: 2
-                },
-                {
-                    type: 'line',
-                    label: 'Ingresos',
-                    data: [60, 40, 55, 65, 75, 65],
-                    borderColor: '#00897b',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    order: 1
-                },
-                {
-                    type: 'line',
-                    label: 'Gastos',
-                    data: [40, 30, 50, 45, 60, 85],
-                    borderColor: '#e53935',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    order: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom' } },
-            scales: { y: { beginAtZero: true } }
+    // 2. Navbar State (Cambio de Transparente a Blanco sólido)
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
         }
     });
 
-    console.log("Sistema ERP cargado. Navegación activa.");
+    // 3. Menú Móvil (Hamburger Menu)
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        // Animación en aspas
+        const spans = hamburger.querySelectorAll('span');
+        if (navLinks.classList.contains('open')) {
+            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(6px, -5px)';
+            // Si se abre el menú arriba el nav debe forzarse estilo oscuro o claro (lo maneja el CSS)
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+
+    // Cerrar menú al hacer clic en un enlace
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            const spans = hamburger.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        });
+    });
+
+    // 4. Scroll Reveal (Aparición fluida tipo CAD/CAM precision)
+    const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+    const revealOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -20px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, revealOptions);
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // 5. Scroll suave para enlaces del Nav
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        });
+    });
+
 });
