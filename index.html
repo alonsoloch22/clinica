@@ -1,251 +1,275 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema ERP - 17Lab</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>17Lab | Prótesis Digitales</title>
+  <link rel="icon" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo-area">
-                <div class="logo-icon">17Lab</div>
-                <h2>Sistema ERP</h2>
-            </div>
-            
-            <nav class="menu">
-                <!-- Agregamos data-target para vincular con las secciones -->
-                <a href="#" class="nav-link active" data-target="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="#" class="nav-link" data-target="clientes"><i class="fas fa-users"></i> Clientes</a>
-                <a href="#" class="nav-link" data-target="proveedores"><i class="fas fa-truck"></i> Proveedores</a>
-                <a href="#" class="nav-link" data-target="cotizaciones"><i class="fas fa-file-invoice-dollar"></i> Cotizaciones</a>
-                <a href="#" class="nav-link" data-target="ordenes"><i class="fas fa-tools"></i> Órdenes</a>
-            </nav>
-        </aside>
+  <!-- ═══ LOADER ═══ -->
+  <div class="loader" id="loader">
+    <img src="logo.png" alt="17Lab Logo" class="loader-logo-img" />
+    <div class="loader-bar"></div>
+  </div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            
-            <!-- Header común -->
-            <header class="top-bar">
-                <div class="page-title">
-                    <h2 id="page-header-title">Dashboard General</h2>
-                </div>
-                <div class="user-info">
-                    <span>Hola, <strong>Diego</strong></span>
-                    <img src="https://i.pravatar.cc/150?img=11" alt="Avatar" class="avatar">
-                </div>
-            </header>
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="nav" id="nav">
+    <a href="#inicio" class="nav-logo">
+      <img src="logo.png" alt="17Lab Digital" class="nav-logo-img" />
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#soluciones">Soluciones</a></li>
+      <li><a href="#procesos">Procesos</a></li>
+      <li><a href="#contacto" class="nav-cta">Contáctenos</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" aria-label="Menú" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
 
-            <!-- VISTA 1: DASHBOARD (Lo que ya teníamos) -->
-            <div id="dashboard" class="content-section active">
-                <section class="kpi-grid">
-                    <div class="card kpi kpi-green">
-                        <div class="kpi-header">Ingresos del Mes</div>
-                        <div class="kpi-value">₡85,200</div>
-                    </div>
-                    <div class="card kpi kpi-red">
-                        <div class="kpi-header">Gastos del Mes</div>
-                        <div class="kpi-value">₡42,800</div>
-                    </div>
-                    <div class="card kpi kpi-blue">
-                        <div class="kpi-header">Órdenes en Proceso</div>
-                        <div class="kpi-value">12</div>
-                    </div>
-                    <div class="card kpi kpi-orange">
-                        <div class="kpi-header">Cotizaciones Pendientes</div>
-                        <div class="kpi-value">5</div>
-                    </div>
-                </section>
-
-                <section class="grid-row-2">
-                    <div class="card chart-container">
-                        <h3>Flujo de Caja</h3>
-                        <div class="chart-wrapper">
-                            <canvas id="cashFlowChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card table-container">
-                        <h3>Órdenes Recientes</h3>
-                        <table class="styled-table">
-                            <thead>
-                                <tr>
-                                    <th>No. OS</th>
-                                    <th>Cliente</th>
-                                    <th>Estado</th>
-                                    <th>Fecha</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1032</td>
-                                    <td>Empresa Alfa</td>
-                                    <td><span class="badge in-process">En Proceso</span></td>
-                                    <td>13/1/2026</td>
-                                </tr>
-                                <tr>
-                                    <td>1025</td>
-                                    <td>Servicios Gamma</td>
-                                    <td><span class="badge pending">Pendiente</span></td>
-                                    <td>15/1/2026</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-                
-                <!-- Sección inferior resumida para el ejemplo -->
-                <section class="grid-row-2">
-                    <div class="card goals-container">
-                        <h3>Metas del Mes</h3>
-                        <div class="goal-item">
-                            <div class="goal-info"><span>Ventas</span><span>75%</span></div>
-                            <div class="progress-bar"><div class="progress-fill green" style="width: 75%;"></div></div>
-                        </div>
-                    </div>
-                     <div class="card info-card">
-                        <h3>Equipo Disponible</h3>
-                        <div class="equipment-list">
-                            <div class="equip-item"><i class="fas fa-chair"></i> 6 U. Dentales</div>
-                            <div class="equip-item"><i class="fas fa-box"></i> 4 Autoclaves</div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- VISTA 2: CLIENTES (Basado en tabla 'usuarios' y 'pacientes') -->
-            <div id="clientes" class="content-section">
-                <div class="card full-width-table">
-                    <div class="table-header-actions">
-                        <h3>Listado de Clientes / Pacientes</h3>
-                        <button class="btn-blue-sm"><i class="fas fa-plus"></i> Nuevo Cliente</button>
-                    </div>
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th>ID (UUID)</th> <!-- Campo 'id' -->
-                                <th>Nombre</th>    <!-- Campo 'nombre' -->
-                                <th>Email</th>     <!-- Campo 'email' -->
-                                <th>Tipo Usuario</th> <!-- Campo 'tipo_usuario' ENUM -->
-                                <th>Rol ID</th>    <!-- Campo 'rol_id' de tabla pacientes -->
-                                <th>Activo</th>    <!-- Campo 'activo' BOOLEAN -->
-                                <th>Creado</th>    <!-- Campo 'created_at' -->
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="mono">u-550e8400</td>
-                                <td>Juan Pérez</td>
-                                <td>juan@gmail.com</td>
-                                <td><span class="role-tag client">Cliente</span></td>
-                                <td>r-1234</td>
-                                <td><span class="status-dot active"></span> Sí</td>
-                                <td>10/01/2025</td>
-                                <td><i class="fas fa-ellipsis-v action-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="mono">u-550e8401</td>
-                                <td>Clínica Dental Sur</td>
-                                <td>contacto@dental.com</td>
-                                <td><span class="role-tag client">Cliente</span></td>
-                                <td>r-5678</td>
-                                <td><span class="status-dot active"></span> Sí</td>
-                                <td>11/01/2025</td>
-                                <td><i class="fas fa-ellipsis-v action-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="mono">u-550e8402</td>
-                                <td>Carlos López</td>
-                                <td>carlos@hotmail.com</td>
-                                <td><span class="role-tag client">Cliente</span></td>
-                                <td>r-9012</td>
-                                <td><span class="status-dot inactive"></span> No</td>
-                                <td>12/01/2025</td>
-                                <td><i class="fas fa-ellipsis-v action-icon"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- VISTA 3: PROVEEDORES (Basado en tabla 'proveedores') -->
-            <div id="proveedores" class="content-section">
-                <div class="card full-width-table">
-                    <div class="table-header-actions">
-                        <h3>Listado de Proveedores</h3>
-                        <button class="btn-blue-sm"><i class="fas fa-plus"></i> Nuevo Proveedor</button>
-                    </div>
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th>ID (UUID)</th>      <!-- Campo 'id' -->
-                                <th>Nombre Empresa</th> <!-- Campo 'nombre' -->
-                                <th>Identificación</th> <!-- Campo 'identificacion' -->
-                                <th>Teléfono</th>       <!-- Campo 'telefono' -->
-                                <th>Email</th>          <!-- Campo 'email' -->
-                                <th>Activo</th>         <!-- Campo 'activo' -->
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="mono">p-770a9900</td>
-                                <td>Insumos Médicos SA</td>
-                                <td>3-101-456789</td>
-                                <td>+506 2222-1111</td>
-                                <td>ventas@insumos.com</td>
-                                <td><span class="status-dot active"></span> Activo</td>
-                                <td><i class="fas fa-edit action-icon"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="mono">p-770a9901</td>
-                                <td>Tecnología Dental CR</td>
-                                <td>3-102-987654</td>
-                                <td>+506 8888-9999</td>
-                                <td>soporte@tecno.cr</td>
-                                <td><span class="status-dot active"></span> Activo</td>
-                                <td><i class="fas fa-edit action-icon"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- VISTA 4: COTIZACIONES (Placeholder) -->
-            <div id="cotizaciones" class="content-section">
-                <div class="card">
-                    <h3>Gestión de Cotizaciones</h3>
-                    <p style="color:#666; margin-top:10px;">Vista basada en tabla: <strong>cotizaciones</strong> (paciente_id, estado, fecha).</p>
-                    <br>
-                    <table class="styled-table">
-                        <thead>
-                            <tr><th>ID</th><th>Paciente</th><th>Estado (ENUM)</th><th>Fecha</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>c-100</td><td>Juan Pérez</td><td><span class="badge in-process">En Proceso</span></td><td>2025-01-20</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-             <!-- VISTA 5: ORDENES (Placeholder) -->
-             <div id="ordenes" class="content-section">
-                <div class="card">
-                    <h3>Órdenes de Servicio</h3>
-                    <p style="color:#666; margin-top:10px;">Vista basada en tabla: <strong>ordenes_servicio</strong> (doctor_id, cotizacion_id, estado).</p>
-                </div>
-            </div>
-
-        </main>
+  <!-- ═══ HERO CON VIDEO ═══ -->
+  <section class="hero" id="inicio">
+    <!-- Video de fondo restaurado -->
+    <div class="hero-video-wrap">
+      <video autoplay loop muted playsinline>
+        <source src="video.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-video-overlay"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+    <div class="hero-content">
+      <div class="hero-label">Prótesis | Digitales</div>
+      <h1 class="hero-title">Soluciones integrales de <span class="text-accent">alta precisión</span></h1>
+      <p class="hero-desc">Somos su Laboratorio "in house", sin la necesidad de complejizar la operación de su consultorio clínico. Calidad, eficacia y rapidez en cada restauración.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('soluciones').scrollIntoView({behavior:'smooth'})">Nuestras Soluciones</button>
+        <button class="btn-secondary" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Contacto</button>
+      </div>
+    </div>
+    <div class="hero-stats reveal-up">
+      <div class="hero-stat">
+        <div class="hero-stat-number">+25</div>
+        <div class="hero-stat-label">Años de Experiencia</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">CAD/CAM</div>
+        <div class="hero-stat-label">Tecnología Digital</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">100%</div>
+        <div class="hero-stat-label">Garantía y Respaldo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NOSOTROS & VALORES ═══ -->
+  <section class="about section-pad" id="nosotros">
+    <div class="about-grid">
+      <div class="about-text reveal-left">
+        <div class="section-label">Acerca de Nosotros</div>
+        <h2 class="section-title">Nuestra Experiencia y Misión</h2>
+        <p class="section-subtitle">
+          Brindamos a los clínicos y sus pacientes trabajos restaurativos que alcancen las expectativas en términos de calidad, eficacia y rapidez. Contamos con <strong>+25 años de experiencia</strong> brindando servicios a distintos laboratorios in house de clínicas en el país.
+        </p>
+        <ul class="process-list mt-4">
+          <li><strong>Capacidad Resolutiva:</strong> Ágiles ante cambios de alcance o externalidades.</li>
+          <li><strong>Atención Personalizada:</strong> Acompañamiento en etapas iniciales y durante ejecución.</li>
+          <li><strong>Excelencia Operacional:</strong> Desde la conceptualización analógica hasta el flujo digital actual.</li>
+        </ul>
+      </div>
+      <div class="about-cards reveal-right stagger-children">
+        <div class="card-dark">
+          <h3>Turismo Médico</h3>
+          <p>Protocolos probados y avalados por nuestros socios clínicos que respaldan la capacidad de brindar soluciones efectivas a estándares internacionales.</p>
+        </div>
+        <div class="card-dark">
+          <h3>Servicios Clínicos Ampliados</h3>
+          <p>Diversidad de soluciones en odontología cosmética/estética y rehabilitación oral en diferentes niveles de complejidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOLUCIONES ═══ -->
+  <section class="solutions section-pad" id="soluciones">
+    <div class="section-header reveal-up text-center">
+      <div class="section-label">Catálogo Técnico</div>
+      <h2 class="section-title">Nuestras Soluciones</h2>
+      <p class="section-subtitle mx-auto">Ofrecemos diversidad en restauración dental y rehabilitación oral, con trazabilidad de materiales y equipos de última generación.</p>
+    </div>
+    
+    <div class="solutions-grid stagger-children">
+      <div class="solution-card reveal-up">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&q=80" alt="Coronas ZrO2" loading="lazy" />
+        </div>
+        <div class="solution-info">
+          <h3>Coronas ZrO2 & Disilicato</h3>
+          <p>Restauraciones estéticas y de alta resistencia (Incrustaciones, Coronas ZrO2 y Coronas en Disilicato de Litio).</p>
+        </div>
+      </div>
+      <div class="solution-card reveal-up">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80" alt="Barras Metálicas" loading="lazy" />
+        </div>
+        <div class="solution-info">
+          <h3>Implantes & Prótesis Híbrida</h3>
+          <p>Barras metálicas (Titanio) sobre implantes y prótesis híbridas con experiencia comprobada hasta en All on X Bimaxilar.</p>
+        </div>
+      </div>
+      <div class="solution-card reveal-up">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&q=80" alt="Modelos 3D" loading="lazy" />
+        </div>
+        <div class="solution-info">
+          <h3>Impresión 3D & Férulas</h3>
+          <p>Impresión de modelos digitales y férulas de descarga (Bruxismo) exactas, diseñadas a partir de escaneo intraoral.</p>
+        </div>
+      </div>
+      <div class="solution-card reveal-up">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Centro de fresado" loading="lazy" />
+        </div>
+        <div class="solution-info">
+          <h3>Centro de Fresado</h3>
+          <p>Escaneo intraoral, centro de fresado de alta tecnología y asesorías personalizadas para su clínica dental.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROCESOS ═══ -->
+  <section class="process section-pad" id="procesos">
+    <div class="process-wrapper">
+      <div class="process-image reveal-left">
+        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=800&q=80" alt="Procesos 17Lab" loading="lazy" />
+        <div class="tech-overlay">
+          <span>Control del proceso productivo</span>
+        </div>
+      </div>
+      <div class="process-text reveal-right">
+        <div class="section-label">Flujo de Trabajo</div>
+        <h2 class="section-title">Nuestros Procesos</h2>
+        <p class="section-subtitle mb-4">
+          En 17LAB DIGITAL, desarrollamos soluciones mediante un flujo que integra tecnología digital de alta precisión con acabados artesanales especializados.
+        </p>
+        <ul class="process-list">
+          <li><strong>1. Escaneo Intraoral / Impresiones:</strong> Identificación del estado clínico. Ofrecemos visita clínica para realizar escaneo si no cuenta con la tecnología.</li>
+          <li><strong>2. Diseño Digital CAD:</strong> Cada restauración es concebida de forma única y a la medida, respetando anatomía y funcionalidad.</li>
+          <li><strong>3. Fresado CAM y Sinterizado:</strong> Manufactura trabajando en rangos de micras, asegurando propiedades mecánicas y estéticas.</li>
+          <li><strong>4. Acabados Artesanales:</strong> Refinamiento final integrando experiencia clínica, control de detalles y caracterización estética.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA / MARCAS ═══ -->
+  <section class="cta reveal-up">
+    <div class="cta-content">
+      <h2 class="cta-title">Tecnología y marcas que nos respaldan</h2>
+      <p class="cta-sub">Aliados estratégicos: Grupo SG, ÉNHMED, Depo Dent CR, IlBinario Digital, IDC, Star Dental, Cosmodent, Prisma Dental Supply.</p>
+      <a href="#contacto" class="btn-primary">Cotizar un caso clínico</a>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACTO ═══ -->
+  <section class="contact section-pad" id="contacto">
+    <div class="contact-wrapper">
+      <div class="contact-info reveal-left">
+        <h3>Contáctenos</h3>
+        <p>Agilidad en tiempo de respuesta según necesidad especial del clínico y paciente.</p>
+        
+        <div class="contact-details">
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+            <span>San José, La Uruca</span>
+          </div>
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            <span>+506 8987-6789</span>
+          </div>
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+            <span>info@17labdigital.com</span>
+          </div>
+          <div class="contact-detail">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <span>@17labdigital</span>
+          </div>
+        </div>
+      </div>
+      
+      <form class="contact-form reveal-right" onsubmit="event.preventDefault(); alert('Mensaje enviado a 17Lab. Nos comunicaremos a la brevedad.');">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clinica">Nombre de la Clínica / Dr.</label>
+            <input type="text" id="clinica" placeholder="Ej. Dr. Rodríguez" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" placeholder="info@clinica.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="asunto">Servicio de Interés</label>
+          <select id="asunto" required>
+            <option value="">Seleccione una opción...</option>
+            <option value="zro2">Coronas / Incrustaciones</option>
+            <option value="implantes">Prótesis Híbrida / Implantes</option>
+            <option value="impresion">Modelos 3D / Férulas</option>
+            <option value="asesoria">Centro de Fresado / Escaneo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Comentarios Adicionales</label>
+          <textarea id="mensaje" rows="4" placeholder="Especifique requerimientos de su caso..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-100">Enviar Solicitud</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <!-- Logo Footer -->
+        <img src="logo.png" alt="17Lab Logo" class="footer-logo-img" />
+        <p>Laboratorio dental In House. Proveemos confianza clínica a través de precisión, protocolos estrictos y tecnología CAD/CAM.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Segmentos</h4>
+        <ul>
+          <li><a href="#nosotros">Turismo Médico</a></li>
+          <li><a href="#nosotros">Servicios Clínicos Ampliados</a></li>
+          <li><a href="#soluciones">Centro de Fresado</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nuestra Experiencia</a></li>
+          <li><a href="#procesos">Protocolos de Trabajo</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 17Lab Prótesis | Digitales. Todos los derechos reservados.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Costa Rica</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
